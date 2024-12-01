@@ -18,7 +18,8 @@ async function handleRequest(request) {
 
   // 验证 token
   const authHeader = request.headers.get('authorization');
-  if (!authHeader[0]?.startsWith('Bearer ')) {
+  console.log(authHeader);
+  if (!authHeader) {
     return new Response(JSON.stringify({ error: 'Invalid token' }), {
       status: 401,
       headers: { 'Content-Type': 'application/json' }
