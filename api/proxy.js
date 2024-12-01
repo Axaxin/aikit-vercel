@@ -58,8 +58,8 @@ async function handleRequest(request) {
   let newPath;
   // if (target === 'mistral') {
   if (backendInfo.backend.includes('mistral') || backendInfo.apikey.includes('ollama')) {
-    tempParts = pathParts.slice(1)
-    newPath = tempParts.filter(part => part !== 'openai').join('/');
+    // tempParts = pathParts.slice(1)
+    newPath = pathParts.slice(1).filter(part => part !== 'openai').join('/');
   } else {
     newPath = pathParts.slice(1).join('/');
   }
