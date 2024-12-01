@@ -1,0 +1,16 @@
+{
+  "name": "simplekit",
+  "version": "1.0.0",
+  "description": "Simple API proxy for AI services",
+  "type": "module",
+  "scripts": {
+    "dev": "vercel dev",
+    "deploy": "vercel deploy --prod"
+  },
+  "dependencies": {
+    "@vercel/edge-config": "^0.4.1"
+  },
+  "devDependencies": {
+    "vercel": "^32.0.0"
+  }
+}

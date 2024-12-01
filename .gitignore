@@ -1,0 +1,9 @@
+node_modules
+.vercel
+.env
+.env.*
+install.sh
+requirements.txt
+simp.py
+init_config.sh
+config.js
