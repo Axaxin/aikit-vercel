@@ -18,7 +18,6 @@ async function handleRequest(request) {
 
   // 验证 token
   const authHeader = request.headers.get('authorization');
-  console.log(authHeader);
   if (!authHeader) {
     return new Response(JSON.stringify({ error: 'Invalid token' }), {
       status: 401,
@@ -26,6 +25,7 @@ async function handleRequest(request) {
     });
   }
   const token = authHeader.slice(7).trim();
+  console.log(token);
   
   if (token !== config.password) {
     return new Response(JSON.stringify({ error: 'Invalid token' }), {
