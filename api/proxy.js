@@ -18,17 +18,16 @@ async function handleRequest(request) {
 
   // 验证 token
   const authHeader = request.headers.get('authorization');
-  if (!authHeader) {
+  if (!authHeader?.startsWith('Bearer ')) {
     return new Response(JSON.stringify({ error: 'Invalid token' }), {
       status: 401,
       headers: { 'Content-Type': 'application/json' }
     });
   }
   const token = authHeader.slice(7).trim();
-  console.log(token);
-  console.log(config.password);
+
   
-  if (token !== config.password) {
+  if (token !== config.password[0]) {
     return new Response(JSON.stringify({ error: 'Invalid token' }), {
       status: 401,
       headers: { 'Content-Type': 'application/json' }
