@@ -70,7 +70,7 @@ async function handleRequest(request) {
   const headers = new Headers(request.headers);
   headers.delete('host');
   
-  if (backendInfo.apikey.includes('ollama')) {
+  if (backendInfo.apikey.includes('ollama-win')) {
     headers.delete('authorization');
   } else {
     headers.set('authorization', `Bearer ${backendInfo.apikey}`);
