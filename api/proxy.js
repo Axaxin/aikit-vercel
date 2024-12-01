@@ -58,6 +58,7 @@ async function handleRequest(request) {
   // 准备请求头
   const headers = new Headers(request.headers);
   headers.delete('host');
+  headers.set('accept-encoding','gzip, deflate');
   
   if (backendInfo.apikey.includes('ollama')) {
     headers.delete('authorization');
