@@ -26,6 +26,7 @@ async function handleRequest(request) {
   }
   const token = authHeader.slice(7).trim();
   console.log(token);
+  console.log(config.password);
   
   if (token !== config.password) {
     return new Response(JSON.stringify({ error: 'Invalid token' }), {
