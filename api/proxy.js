@@ -46,7 +46,7 @@ async function handleRequest(request) {
   }
 
   const target = pathParts[0];
-  if (!(await get(target)) || target === 'password') {
+  if (!(await edgeConfig.get(target)) || target === 'password') {
   // if (!(target in config) || target === 'password') {
     return new Response(JSON.stringify({ error: 'Invalid target' }), {
       status: 400,
