@@ -7,14 +7,6 @@ export const config = {
 async function handleRequest(request) {
   // 从 Edge Config 获取配置
   const edgeConfig = createClient(process.env.EDGE_CONFIG);
-  // const config = await edgeConfig.get('aiapi-config');
-  
-  // if (!config) {
-  //   return new Response(JSON.stringify({ error: 'Server configuration error' }), {
-  //     status: 500,
-  //     headers: { 'Content-Type': 'application/json' }
-  //   });
-  // }
 
   // 验证 token
   const authHeader = request.headers.get('authorization');
@@ -24,11 +16,10 @@ async function handleRequest(request) {
       headers: { 'Content-Type': 'application/json' }
     });
   }
+  
   const token = authHeader.slice(7).trim();
-
   const password = await edgeConfig.get('password');
   if (token !== password) {
-  // if (token !== config.password[0]) {
     return new Response(JSON.stringify({ error: 'Invalid token' }), {
       status: 401,
       headers: { 'Content-Type': 'application/json' }
@@ -46,8 +37,8 @@ async function handleRequest(request) {
   }
 
   const target = pathParts[0];
-  if (!(await edgeConfig.get(target)) || target === 'password') {
-  // if (!(target in config) || target === 'password') {
+  const backendInfo = await edgeConfig.get(target);
+  if (!backendInfo || target === 'password') {
     return new Response(JSON.stringify({ error: 'Invalid target' }), {
       status: 400,
       headers: { 'Content-Type': 'application/json' }
@@ -55,11 +46,8 @@ async function handleRequest(request) {
   }
 
   // 构建转发请求
-  const backendInfo = await edgeConfig.get(target);
-  // const backendInfo = config[target];
   let newPath;
   if (backendInfo.backend.includes('mistral') || backendInfo.apikey.includes('ollama')) {
-    // tempParts = pathParts.slice(1)
     newPath = pathParts.slice(1).filter(part => part !== 'openai').join('/');
   } else {
     newPath = pathParts.slice(1).join('/');
